@@ -151,14 +151,14 @@ function initialize() {
             position: locations[i].LatLng,
             map: map,
             title: locations[i].name
-        })
-        var infoWindow = new google.maps.infoWindow({
+        });
+        var infoWindow = new google.maps.InfoWindow({
             content: "Placeholder for API"
-        })
-        google.maps.event.addListener(marker, 'click', function) {
+        });
+        google.maps.event.addListener(marker, 'click', function() {
             infoWindow.open(map, marker);
-        }
+        });
     }
 }
-/*google.maps.event.addDomListener(window, 'load', initialize);*/
-window.onload = inidialize();
+google.maps.event.addDomListener(window, 'load', initialize);
+/*window.onload = initialize();*/
