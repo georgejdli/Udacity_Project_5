@@ -1,3 +1,6 @@
+//Anonymous self invoking function=---like this!
+(function() {
+
 var model = {
   currentMarker: null,
   markers: [
@@ -87,11 +90,6 @@ var model = {
       lng:  -85.709191
     },
     {
-      title:  "Murphy'/s Cameras",
-      lat:  38.232220,
-      lng:  -85.710345
-    },
-    {
       title:  "Palermo",
       lat:  38.234069,
       lng:  -85.712695
@@ -105,11 +103,6 @@ var model = {
       title:  "Kashmir",
       lat:  38.236050,
       lng:  -85.716085
-    },
-    {
-      title:  "Heart and Soul",
-      lat:  38.236488,
-      lng:  -85.717952
     },
     {
       title: "LaBamba",
@@ -161,14 +154,14 @@ var viewModel = function() {
         markerList[i].lat,
         markerList[i].lng
       );
-
+//this finally works, leave it alone!
       var marker = new google.maps.Marker({
         position: markPos,
         map: map,
         title: markerList[i].title,
         animation: google.maps.Animation.DROP
       });
-
+//still need to work on infoWindow, put more content in
       var infowindow = new google.maps.InfoWindow({
         content: null
       });
@@ -184,10 +177,11 @@ var viewModel = function() {
 
       self.markerArray.push(marker);
     }
-    //console.log(markerArray());
+    //console.log(markerArray()
   }();
 
 
 };
 
 ko.applyBindings(new viewModel());
+})();

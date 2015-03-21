@@ -60,10 +60,44 @@ body {
 #map-canvas {
   height: 100%
 }
-.gm-style-iw{
-    white-space: nowrap;
+
+.search-form {
+  position: fixed;
+  top: 30px;
+  left: 25px;
+  z-index: 9999;
+  background: rgba(0,0,0,0.25);
+  padding: 20px;
+  height: 55px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
 }
-#pointList {
+
+.search-bar,
+.search-submit {
+  height: 80%;
+  border: none;
+}
+
+.search-bar {
+  padding: 5px 8px;
+  width: 233px;
+  border-radius: 10px;
+}
+
+.search-submit {
+  margin-left: 8px;
+  padding: 8px 13px;
+  background: #333;
+  color: white;
+  background-color: red;
+  font-size: 14px;
+  font-weight: bold;
+  border: solid black 2px;
+}
+
+/*#pointList {
   position: fixed;
   left: 10px;
   top: 10px;
@@ -80,34 +114,3 @@ body {
 }
 
 /*needs some work, but raw css for search background-repeat */
-.search-form {
-  position: fixed;
-  top: 21px;
-  left: 21px;
-  z-index: 9999;
-  background: rgba(0,0,0,0.25);
-  padding: 13px;
-  height: 55px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.search-bar,
-.search-submit {
-  height: 100%;
-  border: none;
-}
-
-.search-bar {
-  padding: 5px 8px;
-  width: 233px;
-}
-
-.search-submit {
-  margin-left: 8px;
-  padding: 5px 13px;
-  background: #333;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-}
