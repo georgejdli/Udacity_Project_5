@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/script2.js"></script>
+    <script type="text/javascript" src="js/knockout.js"></script>
+
     <style>
      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     </style>
@@ -12,12 +15,45 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPgDtO-2OWObhB1Eu95zIMcbDeHRQEpNE"></script>
   </head>
   <body>
- <input id="pac-input" class="controls" type="text" placeholder="What are you looking for?"></input>
+ <input id="pac-input" class="controls" type="text" data-bind="value: Check this place"></input>
   <div id="map-canvas"></div>
+ <ul data-bind="template: {name:'locations', foreach:locations}"></ul>
+ <script type="text/html" id="locations">
+  <li>
+    <strong data-bind="text: name"></strong>
+  </li>
+</script>
   </body>
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="js/knockout.js"></script>
+
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/ytApi.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Highlands Neighborhood Map | Udacity Project 5</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/knockout.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDPgDtO-2OWObhB1Eu95zIMcbDeHRQEpNE"></script>
+  </head>
+  <body>
+    <form class="search-form" data-bind="submit: filterSubmit">
+    <input data-bind="value: filterQuery" class="search-bar" placeholder="Filter favorite places">
+    <button class="search-submit" type="submit"><span>Filter</span></button>
+  </form>
+    <div id="map-canvas"></div>
+    <div id="pointList">
+    <ul data-bind="foreach: markerArray">
+    <li id="listfont" data-bind="text: title"></li>
+</ul>
+      </ul>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
 </html>

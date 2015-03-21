@@ -1,9 +1,11 @@
-html,
+/*Commented out code is for the original map attempt, didn't want to remove it so I could refer back in case I needed to/*
+/*html,
 body,
 #map-canvas {
         height: 100%;
         margin: 0px;
         padding: 0px
+        float: left;
       }
       .controls {
         margin-top: 16px;
@@ -46,3 +48,66 @@ body,
         font-size: 13px;
         font-weight: 300;
       }
+*/
+html {
+  height: 100%
+}
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0
+}
+#map-canvas {
+  height: 100%
+}
+.gm-style-iw{
+    white-space: nowrap;
+}
+#pointList {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  width: 18%;
+  min-width: 200px;
+  height: 80%;
+  background-color: red;
+  color: black;
+  font-size: 1.2em;
+  border-radius: 15px;
+  border: 5px solid black;
+  opacity: .6;
+  display: inline-block;
+}
+
+/*needs some work, but raw css for search background-repeat */
+.search-form {
+  position: fixed;
+  top: 21px;
+  left: 21px;
+  z-index: 9999;
+  background: rgba(0,0,0,0.25);
+  padding: 13px;
+  height: 55px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-bar,
+.search-submit {
+  height: 100%;
+  border: none;
+}
+
+.search-bar {
+  padding: 5px 8px;
+  width: 233px;
+}
+
+.search-submit {
+  margin-left: 8px;
+  padding: 5px 13px;
+  background: #333;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
