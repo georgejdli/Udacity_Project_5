@@ -180,6 +180,18 @@ var viewModel = function() {
     //console.log(markerArray()
   }();
 
+$.ajax({
+    url: "https://yourmapper2.p.mashape.com/markers?c=1%2C2%2C3&center=1&compact=1&days=30&end=2012-12-31&f=json&id=180&lat=38.234472&lon=-85.713895&num=5&radius=1&search=smith&start=2012-01-01", // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
+    type: 'POST', // The HTTP Method
+    data: {}, // Additional parameters here
+    datatype: 'json',
+    success: function(data) { alert(JSON.stringify(data)); },
+    error: function(err) { alert(err); },
+    beforeSend: function(xhr) {
+    xhr.setRequestHeader("X-Mashape-Authorization", "X-Mashape-Key: C0uqW4lPTtmshIf6Z4RnCTLOzEp8p1QBG2RjsnUH0gWljPn96j"); // Enter here your Mashape key
+    }
+});
+
 
 };
 
