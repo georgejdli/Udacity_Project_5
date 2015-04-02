@@ -1,50 +1,38 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/
-ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function()
-{
+ // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
 
-$(".search_input").keyup(function()
-{
-var search_input = $(this).val();
-var keyword= encodeURIComponent(search_input);
-// Youtube API
-var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&alt=jsonc';
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-$.ajax
-({
-type: "GET",
-url: yt_url,
-dataType:"jsonp",
-success: function(response)
-{
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          videoId: '',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
 
-if(response.data.items)
-{
-$.each(response.data.items, function(i,data)
-{
-var video_id=data.id;
-var video_title=data.title;
-var video_viewCount=data.viewCount;
-// IFRAME Embed for YouTube
-var video_frame="<iframe width='640' height='385' src='http://www.youtube.com/embed/"+video_id+"' frameborder='0' type='text/html'></iframe>";
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
 
-var final="<div id='title'>"+video_title+"</div><div>"+video_frame+"</div><div id='count'>"+video_viewCount+" Views</div>";
-
-$("#result").html(final); // Result
-
-});
-}
-else
-{
-$("#result").html("<div id='no'>No Video</div>");
-}
-}
-});
-});
-});
-</script>
-// HTML code
-<input type="text" class='search_input' />
-<div id="result">
-</div>
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }

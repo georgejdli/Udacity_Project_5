@@ -74,8 +74,22 @@ body {
   border-radius: 10px;
 }
 
+#player {
+  position: fixed;
+  top:30px;
+  right: 25px;
+  z-index: 9999;
+  background: rgba (0,0,0,0.25);
+  padding: 20px;
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+}
+
 .search-bar,
-.search-submit {
+.search_input {
   height: 80%;
   border: none;
 }

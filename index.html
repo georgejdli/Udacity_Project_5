@@ -40,10 +40,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/knockout.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDPgDtO-2OWObhB1Eu95zIMcbDeHRQEpNE"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script>
+    <script src="js/auth.js"></script>
+ <!--   <script src="js/rawYT.js"></script>
+<!--    <script src="http://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"</script>  -->
   </head>
   <body>
-    <form class="search-form" data-bind="submit: filterSubmit">
+    <div id="player"></div>
+    <form class="search-form" class="search_input" data-bind="submit: filterSubmit">
     <input data-bind="value: filterQuery" class="search-bar" placeholder="What sounds interesting?">
     <button class="search-submit" type="submit"><span>Submit</span></button>
   </form>
@@ -53,6 +57,7 @@
     <li id="listfont" data-bind="text: title"></li>
 </ul>
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/script-1.js"></script>
+    <script src="js/rawYT.js"></script>
   </body>
 </html>
