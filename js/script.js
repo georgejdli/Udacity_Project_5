@@ -118,31 +118,22 @@ var viewModel = function() {
       });
 //still need to work on infoWindow, put more content in
 //creates the window for each marker, just applies a generic youtube video at the moment, need to get it working with Ajax to supply video.
-        var yt_url = 'https://www.googleapis.com/youtube/v3/search?q='+marker.title+'Louisville&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318&type=video';
+        var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + marker.title + '+louisville&maxResults=1&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
         var ytRequestTimeout = setTimeout(function(){
         console.log("failed to get Youtube resources");
     }, 10000);
         google.maps.event.addListener(marker, "click", function(){
           //make some room for youtube ajax call and supporting code here.
-          $.getJSON({
-
-          success: function(response){
+          $.getJSON( yt_url, function(response){
+            console.log(response);
             var ytWindow = new google.maps.InfoWindow({
-              content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src=' + yt_url +' type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
+              content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src=' + items[1] +' type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
               })
             ytWindow.open(map, marker);
 
           }
 
-        })
-
-
-
-/*
-        var ytWindow = new google.maps.InfoWindow({
-          content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/UmFjNiiVk9w?fs=1" type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
-        })
-        ytWindow.open(map, marker);*/
+        )
     })
 }
     //console.log(markerArray()
