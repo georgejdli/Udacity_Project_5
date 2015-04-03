@@ -118,16 +118,18 @@ var viewModel = function() {
       });
 //still need to work on infoWindow, put more content in
 //creates the window for each marker, just applies a generic youtube video at the moment, need to get it working with Ajax to supply video.
-        var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + marker.title + '+louisville&maxResults=1&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
+
         var ytRequestTimeout = setTimeout(function(){
         console.log("failed to get Youtube resources");
     }, 10000);
         google.maps.event.addListener(marker, "click", function(){
+          var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + marker.title + '+louisville&maxResults=1&callback=?&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
           //make some room for youtube ajax call and supporting code here.
           $.getJSON( yt_url, function(response){
             console.log(response);
+            var title = response.items[0].id.videoId;
             var ytWindow = new google.maps.InfoWindow({
-              content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src=' + items[1] +' type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
+              content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src=' + title +' type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
               })
             ytWindow.open(map, marker);
 
@@ -145,74 +147,3 @@ var viewModel = function() {
 ko.applyBindings(new viewModel());
 })();
 
-
-/*
-$(document).ready(function()
-{
-
-$(".search_input").keyup(function()
-{
-var search_input = $(this).val();
-var keyword= encodeURIComponent(search_input);
-// Youtube API
-var yt_url='http://gdata.youtube.com/feeds/api/videos?q='+keyword+'&format=5&max-results=1&v=2&alt=jsonc';
-
-$.ajax
-({
-type: "GET",
-url: yt_url,
-dataType:"jsonp",
-success: function(response)
-{
-
-if(response.data.items)
-{
-$.each(response.data.items, function(i,data)
-{
-var video_id=data.id;
-var video_title=data.title;
-var video_viewCount=data.viewCount;
-// IFRAME Embed for YouTube
-var video_frame="<iframe width='640' height='385' src='http://www.youtube.com/embed/"+video_id+"' frameborder='0' type='text/html'></iframe>";
-
-var final="<div id='title'>"+video_title+"</div><div>"+video_frame+"</div><div id='count'>"+video_viewCount+" Views</div>";
-
-$("#result").html(final); // Result
-
-});
-}
-else
-{
-$("#result").html("<div id='no'>No Video</div>");
-}
-}
-});
-});
-});
-</script>
-// HTML code
-<input type="text" class='search_input' />
-<div id="result">
-</div>
-
-
-
-
-
-
-//Hold onto below for now, just now liking how it works, scant documentation makes it difficult to get it working, going to try Youtube again.
-
-
-//ajax call for yourMapperApp2 from Mashape.com. a dynamic mapping aid app for louisville area
-/*$.ajax({
-    url: "https://yourmapper2.p.mashape.com/markers?c=1%2C2%2C3&center=1&compact=1&days=30&f=json&id=180&lat=38.234472&lon=-85.713895&num=5&radius=1&search=smith", // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
-    type: 'GET', // The HTTP Method
-    data: {}, // Additional parameters here
-    datatype: 'json',
-    success: function(data) { alert(JSON.stringify(data)); },
-    error: function(err) { alert(err); },
-    beforeSend: function(xhr) {
-    xhr.setRequestHeader("X-Mashape-Key: C0uqW4lPTtmshIf6Z4RnCTLOzEp8p1QBG2RjsnUH0gWljPn96j"); // Enter here your Mashape key
-    }
-});
-*/
