@@ -1,35 +1,4 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset='UTF-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/script2.js"></script>
-    <script type="text/javascript" src="js/knockout.js"></script>
 
-    <style>
-     html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
-    <title>Highlands Louisville Stuff To Do Neighborhood Map</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPgDtO-2OWObhB1Eu95zIMcbDeHRQEpNE"></script>
-  </head>
-  <body>
- <input id="pac-input" class="controls" type="text" data-bind="value: Check this place"></input>
-  <div id="map-canvas"></div>
- <ul data-bind="template: {name:'locations', foreach:locations}"></ul>
- <script type="text/html" id="locations">
-  <li>
-    <strong data-bind="text: name"></strong>
-  </li>
-</script>
-  </body>
-
-
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
-</html>
--->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,12 +12,12 @@
     <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
     <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script>
     <script src="js/auth.js"></script>
-    <script src="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script>
+ <!--   <script src="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script> -->
   </head>
   <body>
-  <iframe id="player" type="text/html" width="640" height="390"
+  <!--<iframe id="player" type="text/html" width="640" height="390"
       src="https://www.youtube.com/embed/oR5F8e0jLKI"
-      frameborder="0"></iframe>
+      frameborder="0"></iframe> -->
     <form id="search-form" data-bind="submit: filterSubmit">
     <input data-bind="value: filterQuery" class="search-bar" placeholder="PUB OR GRUB?" type="text" id="choice" value"">
     <button class="search-submit" type="submit"><span>Submit</span></button>
