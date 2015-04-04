@@ -1,6 +1,12 @@
 //Anonymous self invoking function=---like this!
 (function() {
 
+var $body = $('body')
+var $player = $('#player');
+var $choice = $('#choice');
+
+var choice = $choice.val();
+
 var model = {
             currentMarker: null,
   markers: [
@@ -123,21 +129,23 @@ var viewModel = function() {
         console.log("failed to get Youtube resources");
     }, 10000);
         google.maps.event.addListener(marker, "click", function(){
-          var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + marker.title + '+louisville&maxResults=1&callback=?&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
+          var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + this.title + '+louisville&maxResults=1&callback=?&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
           //make some room for youtube ajax call and supporting code here.
-          $.getJSON( yt_url, function(response){
+          $.getJSON(yt_url, function(response){
             console.log(response);
             var title = response.items[0].id.videoId;
-            var ytWindow = new google.maps.InfoWindow({
-              content: '<object width="425" height="344"><param name="movie" value="am name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src=' + title +' type="application/x-shockwave-flash" width="425" height="344" allowscriptaccess="always" allowfullscreen="true"></embed></object>'
-              })
-            ytWindow.open(map, marker);
+
+            //var contentString = '<iframe width="320" height="200" src="//www.youtube.com/embed/'+title+'" frameborder="0" allowfullscreen></iframe>';
+            //var ytWindow = new google.maps.InfoWindow({
+              //content: contentString
+              //})
+            //ytWindow.open(map, marker);
 
           }
 
         )
     })
-}
+  }
     //console.log(markerArray()
   }();
 

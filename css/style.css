@@ -57,11 +57,16 @@ body {
   margin: 0;
   padding: 0
 }
+
+iframe {
+ -webkit-transform:translate3d(0,0,0);
+}
+
 #map-canvas {
   height: 100%
 }
 
-.search-form {
+#search-form {
   position: fixed;
   top: 30px;
   left: 25px;
@@ -80,20 +85,18 @@ body {
   right: 25px;
   z-index: 9999;
   background: rgba (0,0,0,0.25);
-  padding: 20px;
   height: 200px;
   width: 300px;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 10px;
 }
-
+/*
 .search-bar,
 .search_input {
   height: 80%;
   border: none;
 }
-
+*/
 .search-bar {
   padding: 5px 8px;
   width: 233px;
