@@ -1,7 +1,7 @@
 //Anonymous self invoking function=---like this!
 (function() {
 
-var $body = $('body')
+var $body = $('body');
 var $player = $('#player');
 var $choice = $('#choice');
 
@@ -79,7 +79,7 @@ var model = {
       title:  "Heine Brothers Coffee",
       lat:  38.237297,
       lng:  -85.719467
-    },
+    }
 ]
 };
 
@@ -134,17 +134,18 @@ var viewModel = function() {
           $.getJSON(yt_url, function(response){
             console.log(response);
             var title = response.items[0].id.videoId;
-
-            //var contentString = '<iframe width="320" height="200" src="//www.youtube.com/embed/'+title+'" frameborder="0" allowfullscreen></iframe>';
-            //var ytWindow = new google.maps.InfoWindow({
-              //content: contentString
-              //})
-            //ytWindow.open(map, marker);
+            //var playerUrl = 'src="https://www.youtube.com/embed/' + title + '"';
+            //$player.append(playerUrl);
+            var contentString = '<div id="player">' + '<iframe width="320" height="200" src="https://www.youtube.com/embed/'+title+'" frameborder="0" allowfullscreen></iframe>' + '</div>';
+            var ytWindow = new google.maps.InfoWindow({
+              content: contentString
+              })
+            ytWindow.open(map, marker);
 
           }
 
-        )
-    })
+        );
+    });
   }
     //console.log(markerArray()
   }();
