@@ -119,6 +119,7 @@ var viewModel = function() {
       var marker = new google.maps.Marker({
         position: markPos,
         map: map,
+        icon: 'images/marker.png',
         title: markerList[i].title,
         animation: google.maps.Animation.DROP
       });
