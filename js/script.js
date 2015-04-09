@@ -1,3 +1,17 @@
+function detectBrowser() {
+  var useragent = navigator.userAgent;
+  var mapdiv = document.getElementById("map-canvas");
+
+  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+    mapdiv.style.width = '100%';
+    mapdiv.style.height = '100%';
+  } else {
+    mapdiv.style.width = '600px';
+    mapdiv.style.height = '800px';
+  }
+}
+
+
 //Anonymous self invoking function=---like this!
 (function() {
 
@@ -13,72 +27,86 @@ var model = {
     {
       title: "Ramsis on the World",
       lat: 38.235616,
-      lng:  -85.715553
+      lng:  -85.715553,
+      description: "grub"
     },
     {
       title: "Molly Malone's",
       lat: 38.241760,
-      lng: -85.725012
+      lng: -85.725012,
+      description: "pub"
     },
     {
       title: "Oshea's",
       lat: 38.240664,
-      lng: -85.724904
+      lng: -85.724904,
+      description: "pub"
     },
     {
       title: "Wick's Pizza",
       lat: 38.240361,
-      lng: -85.724346
+      lng: -85.724346,
+      description: "grub"
     },
     {
       title: "Nowhere Bar",
       lat: 38.237917,
-      lng:  -85.719583
+      lng:  -85.719583,
+      description: "pub"
     },
     {
       title: "Impellizari's",
       lat: 38.233569,
-      lng: -85.711901
+      lng: -85.711901,
+      description: "grub"
     },
     {
       title: "Boombozz Pizza",
       lat: 38.231883,
-      lng: -85.710034
+      lng: -85.710034,
+      description: "grub"
     },
     {
       title:  "Mark's Feed Store BBQ",
       lat: 38.231445,
-      lng: -85.708532
+      lng: -85.708532,
+      description: "grub"
     },
     {
       title:  "Seviche",
       lat: 38.231175,
-      lng: -85.707545
+      lng: -85.707545,
+      description: "grub"
     },
     {
       title:  "Cumberland Brewery",
       lat:  38.230729,
-      lng:  -85.705389
+      lng:  -85.705389,
+      description: "pub"
     },
     {
       title:  "Cafe Mimosa",
       lat:  38.231487,
-      lng:  -85.706344
+      lng:  -85.706344,
+      description: "grub"
     },
     {
       title:  "Palermo",
       lat:  38.234069,
-      lng:  -85.712695
+      lng:  -85.712695,
+      description: "grub"
     },
     {
       title:  "Bristol Bar",
       lat:  38.235241,
-      lng:  -85.714041
+      lng:  -85.714041,
+      description: "pub"
     },
     {
       title:  "Heine Brothers Coffee",
       lat:  38.237297,
-      lng:  -85.719467
+      lng:  -85.719467,
+      description: "grub"
     }
 ]
 };
@@ -92,17 +120,15 @@ var viewModel = function() {
   var initMap = function() {
     //create map
     var mapOptions = {
-         center: {
-          //Center map at Cherokee Rd and Bardstown Rd
-            lat: 38.234472,
-            lng: -85.713895
-        },
-        zoom: 15,
+        center: new google.maps.LatLng(38.235616,-85.715553),
+        zoom: 16,
+        mapTypeId: 'terrain',
         panControl: false,
         disableDefaultUI: true
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
 
     bounds = new google.maps.LatLngBounds();
 
