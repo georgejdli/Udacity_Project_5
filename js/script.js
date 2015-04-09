@@ -15,6 +15,18 @@ function detectBrowser() {
 //Anonymous self invoking function=---like this!
 (function() {
 
+//let's try a function to begin our observable listview
+function locationList(name, type) {
+  var self=this;
+  self.name=marker.title;
+  self.type=marker.description;
+}
+
+
+
+
+
+
 var $body = $('body');
 var $player = $('#player');
 var $choice = $('#choice');
@@ -167,7 +179,7 @@ var viewModel = function() {
             var ytWindow = new google.maps.InfoWindow({
               content: contentString
               })
-            ytWindow.open(map, marker);
+            ytWindow.open(marker.get('map'), marker);
 
           }
 

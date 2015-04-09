@@ -81,15 +81,15 @@ iframe {
 
 /*#player {
   position: fixed;
-  top:30px;
-  right: 25px;
+  top:10%;
+  right: 10%;
   z-index: 9999;
   background: rgba (0,0,0,0.25);
   height: 200px;
   width: 300px;
   display: flex;
   flex-wrap: wrap;
-}
+}*/
 /*
 .search-bar,
 .search_input {

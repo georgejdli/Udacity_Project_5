@@ -24,8 +24,10 @@
   </form>
     <div id="map-canvas"></div>
     <div id="pointList">
-    <ul data-bind="foreach: markerArray">
-    <li id="listfont" data-bind="text: title"></li>
+    <ul data-bind="template: {name:'title', foreach:markers}">
+    <script type="text/html" id="markers">
+      <li>strong data-bind: "text: title"></strong></li>
+    </script>
 </ul>
     </div>
     <script src="js/script.js"></script>
