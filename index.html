@@ -7,29 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Highlands Neighborhood Map | Udacity Project 5</title>
     <link rel="stylesheet" href="css/style.css">
+ <!--   <script src="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script> -->
+  </head>
+  <body>
+    <form id="search-form" data-bind="submit: filterSubmit">
+    <input data-bind="value: filterQuery" class="search-bar" placeholder="PUB OR GRUB?" type="text" id="choice" value"">
+    <button class="search-submit" type="submit"><span>Submit</span></button>
+    </form>
+    <div id="map-canvas"></div>
+    <div id="pointList">
+    </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/knockout.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
     <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script>
     <script src="js/auth.js"></script>
- <!--   <script src="https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318"></script> -->
-  </head>
-  <body>
-  <!--<iframe id="player" type="text/html" width="640" height="390"
-      src="https://www.youtube.com/embed/oR5F8e0jLKI"
-      frameborder="0"></iframe> -->
-    <form id="search-form" data-bind="submit: filterSubmit">
-    <input data-bind="value: filterQuery" class="search-bar" placeholder="PUB OR GRUB?" type="text" id="choice" value"">
-    <button class="search-submit" type="submit"><span>Submit</span></button>
-  </form>
-    <div id="map-canvas"></div>
-    <div id="pointList">
-    <ul data-bind="template: {name:'title', foreach:markers}">
-    <script type="text/html" id="markers">
-      <li>strong data-bind: "text: title"></strong></li>
-    </script>
-</ul>
-    </div>
+<!--    <script src="js/infobox.js" type="text/javascript"></script> -->
     <script src="js/script.js"></script>
 <!--    <script src="js/rawYT.js"></script> -->
   </body>
