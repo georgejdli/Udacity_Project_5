@@ -43,12 +43,6 @@ var markers = [
       description: "pub"
     },
     {
-      title: "Impellizari's",
-      lat: 38.233569,
-      lng: -85.711901,
-      description: "grub"
-    },
-    {
       title: "Boombozz Pizza",
       lat: 38.231883,
       lng: -85.710034,
