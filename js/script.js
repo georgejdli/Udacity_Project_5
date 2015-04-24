@@ -11,31 +11,7 @@ function detectBrowser() {
   }
 }
 
-
-//Anonymous self invoking function=---like this!
-(function() {
-
-//let's try a function to begin our observable listview
-function locationList(name, type) {
-  var self=this;
-  self.name=marker.title;
-  self.type=marker.description;
-}
-
-
-
-
-
-
-var $body = $('body');
-var $player = $('#player');
-var $choice = $('#choice');
-
-var choice = $choice.val();
-
-var model = {
-            currentMarker: null,
-  markers: [
+var markers = [
     {
       title: "Ramsis on the World",
       lat: 38.235616,
@@ -120,15 +96,13 @@ var model = {
       lng:  -85.719467,
       description: "grub"
     }
-]
-};
+];
 
 var viewModel = function() {
   var map, bounds, markerArray;
-
+  markerArray = [];
   var self = this;
-
-  //Initialize map location, set as IIFE to kick off immediately
+    //Initialize map location, set as IIFE to kick off immediately
   var initMap = function() {
     //create map
     var mapOptions = {
@@ -141,26 +115,30 @@ var viewModel = function() {
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-
     bounds = new google.maps.LatLngBounds();
 
+    //create the markerArray for markers to populate on creation
     self.markerArray = ko.observableArray();
-
     //add markers
-    var markerList = model.markers;
-    for(var i = 0; i < markerList.length; i++) {
+    for(var i = 0; i < markers.length; i++) {
       var markPos = new google.maps.LatLng(
-        markerList[i].lat,
-        markerList[i].lng
+        markers[i].lat,
+        markers[i].lng
       );
 //this finally works, leave it alone!
       var marker = new google.maps.Marker({
         position: markPos,
         map: map,
         icon: 'images/marker.png',
-        title: markerList[i].title,
+        title: markers[i].title,
         animation: google.maps.Animation.DROP
       });
+
+      bounds.extend(markPos);
+   //   map.fitBounds(bounds);
+      map.setCenter(bounds.getCenter());
+
+      self.markerArray.push(marker);
 //still need to work on infoWindow, put more content in
 //creates the window for each marker, just applies a generic youtube video at the moment, need to get it working with Ajax to supply video.
 
@@ -193,4 +171,3 @@ var viewModel = function() {
 };
 
 ko.applyBindings(new viewModel());
-})();

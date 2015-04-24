@@ -1,100 +1,13 @@
-//set the map parameters
-var center = new google.maps.LatLng(38.235616,-85.715553);
-//The degree to which the map is zoomed in. This can range from 0 (least zoomed) to 21 and above (most zoomed).
-var zoom = 16;
-var zoomMax = 18;
-var zoomMin = 12;
+//second iteration
+//Jason Smith
+//Udacity Nanodegree Project 5
+//TODO - apply Knockout bindings
+//TODO - work with script-1.js
+var infowindow, map, marker, center, locations;
+var markers = [];
 
-//These options configure the setup of the map.
-var mapOptions = {
-    center: center,
-    zoom: zoom,
-    maxZoom:zoomMax,
-    minZoom:zoomMin,
-    mapTypeId: 'terrain',
-    panControl: false,
-    mapTypeControl: false
-};
-
-var map;
-
-//use the infobox library to inject the youtube JSON into the click event//set style for infobox
-var infoWindowBox = "border: 0px solid black; background-color: #ffffff; padding:15px; margin-top: 8px; border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; box-shadow: 1px 1px #888;";
-
-//loads up the map on the page using above options and below function when the DOM loads
-google.maps.event.addDomListener(window, 'load', initializeMap);
-
-//function called by above to create the map
-function initializeMap () {
-
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-}
-
-function createMarkers () {
-      //add markers
-    var markerList = model.markers;
-    for(var i = 0; i < markerList.length; i++) {
-      var markPos = new google.maps.LatLng(
-        markerList[i].lat,
-        markerList[i].lng
-      },
-      //this finally works, leave it alone!
-      var marker = new google.maps.Marker({
-        position: markPos,
-        map: map,
-        icon: 'images/marker.png',
-        title: markerList[i].title,
-        animation: google.maps.Animation.DROP
-      });
-}
-//create the inforaation for the infobox
-var ytInfoWindow = document.createElement('div');
-ytInfoWindow.style.cssText = infoWindowBox;
-ytInfoWindow.innerHTML = getMovie();
-
-
-
-function getMovie() {
-  var ytString = document.addEventListener(marker, 'click', function() {
-  var self = this;
-   var yt_url = 'https://www.googleapis.com/youtube/v3/search?part=id&q=' + self.title + '+louisville&maxResults=1&callback=?&key=AIzaSyActmR_LWyXc0Y9CxHucYh-C73C09Om318';
-  $.getJSON(yt_url, function(json){
-      console.log(json);
-      var title = json.items[0].id.videoId;
-      var contentString = '<div id="player">' + '<iframe width="320" height="200" src="https://www.youtube.com/embed/'+title+'" frameborder="0" allowfullscreen></iframe>' + '</div>';
-      });
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//hard data list of markers, put at bottom to keep out of sight for coding preference
-var model = {
-            currentMarker: null,
-  markers: [
-    {
+  // create locations objects in an array to be used in marker functions.
+ locations = [{
       title: "Ramsis on the World",
       lat: 38.235616,
       lng:  -85.715553,
@@ -177,6 +90,128 @@ var model = {
       lat:  38.237297,
       lng:  -85.719467,
       description: "grub"
-    }
-]
-};
+    }];
+
+ var initialize = function(){
+
+
+ center = new google.maps.LatLng(38.235616,-85.715553);
+
+ var mapOptions = {
+      center: center,
+      zoom: 16,
+      mapTypeId: 'terrain',
+      panControl: false,
+      disableDefaultUI: true
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  infowindow = new google.maps.InfoWindow();
+  var i;
+  // create marker functions to place markers on map and set up the info window
+  for (i = 0; i < locations.length; i++) {
+    marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i].lat, locations[i].lng),
+            map: map,
+            title: locations[i].name
+        });
+
+
+
+        google.maps.event.addListener(marker, 'click', (function(marker)  {
+            return function() {
+
+                // set info window with a title and open the info window
+                infowindow.setContent(marker.title);
+                infowindow.open(map, marker);
+
+              // add marker animation by setting and timing out animation
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function(){ marker.setAnimation(null); }, 750);
+
+            }
+        })(marker));
+
+        markers.push(marker);
+
+  };
+
+
+
+}
+
+var ExplorerViewModel = function(){
+  var self = this;
+
+  // observe the global array of locations
+  self.locations= ko.observableArray(locations);
+
+  self.markers=ko.observableArray(markers);
+
+  self.filter= ko.observable('');
+
+  // Create function to open info windows in response to clicks on list-view.
+  self.OpenInfoWindow= function(locations){
+
+    var point= markers[locations.markerNum];
+
+    // set info window with a title and open the info window
+     infowindow.open(map, point);
+     infowindow.setContent(point.title);
+
+     // add marker animation by setting and timing out animation
+     point.setAnimation(google.maps.Animation.BOUNCE);
+     setTimeout(function(){ point.setAnimation(null); }, 750);
+
+ }
+ //Handles the showing and hiding of all markers depending on setMap() value
+  self.showOrHideMarkers= function(state){
+           for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(state);
+          };
+        }
+
+// returns array to the filteredmarkers array definition
+  self.filterArray = function(filter){
+       return ko.utils.arrayFilter(self.locations(), function(location) {
+        return location.name.toLowerCase().indexOf(filter) >= 0;
+
+
+       });
+
+  }
+//displays selected markers
+  self.displaySelected = function(filteredmarkers){
+  for (var i = 0; i < filteredmarkers.length; i++) {
+             markers[filteredmarkers[i].markerNum].setMap(map);
+            }
+      }
+
+
+//Manages filtering of list view and markers
+self.filterList = function(){
+var filter = self.filter().toLowerCase();
+  if (!filter) {
+      self.showOrHideMarkers(map);
+     return self.locations();
+  } else {
+
+  self.showOrHideMarkers(null);
+  var filteredmarkers = [];
+  filteredmarkers = self.filterArray(filter);
+  self.displaySelected(filteredmarkers);
+  return filteredmarkers;
+
+  }
+}
+
+
+}
+
+
+
+
+google.maps.event.addDomListener(window, 'load', ExplorerMap);
+
+ko.applyBindings(new ExplorerViewModel());

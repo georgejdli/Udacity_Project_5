@@ -58,7 +58,7 @@ body {
   padding: 0
 }
 
-iframe {
+.player {
  -webkit-transform:translate3d(0,0,0);
 }
 
@@ -69,7 +69,7 @@ iframe {
 #search-form {
   position: fixed;
   top: 30px;
-  left: 25px;
+  right: 25px;
   z-index: 9999;
   background: rgba(0,0,0,0.25);
   padding: 20px;
@@ -114,7 +114,7 @@ iframe {
   border: solid black 2px;
 }
 
-/*#pointList {
+#pointList {
   position: fixed;
   left: 10px;
   top: 10px;
@@ -128,6 +128,7 @@ iframe {
   border: 5px solid black;
   opacity: .6;
   display: inline-block;
+  z-index: 9999;
 }
 
 /*needs some work, but raw css for search background-repeat */

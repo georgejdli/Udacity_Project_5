@@ -1,228 +1,181 @@
-//This was the first iteration of the map js, but after reviewing the forums I found a cleaner code that made the callbacks a lot easier to
-//work with:  Referred mostly to :  http://discussions.udacity.com/t/p5-marker-list-not-displaying/3015 also had help from George Li
-    var locations = [];
-    locations.push({
-        name: "Ramsis on the World",
-        LatLng: new google.maps.LatLng(38.235616, -85.715553),
-        description: "V4qP_cT_ts4"
-    });
-    locations.push({
-        name: "Molly Malone/'s",
-        LatLng: new google.maps.LatLng(38.241760, -85.725012)
-    });
-    locations.push({
-        name: "Oshea/'s",
-        LatLng: new google.maps.LatLng(38.240664, -85.724904)
-    });
-    locations.push({
-        name: "Pheonix Hill",
-        LatLng: new google.maps.LatLng(38.244473, -85.728123)
-    });
-    locations.push({
-        name: "Wick/'s Pizza",
-        LatLng: new google.maps.LatLng(38.240361, -85.724346)
-    });
+// JavaScript Document
+var locationData =
+[
+    {
+      title: "Ramsis on the World",
+      lat: 38.235616,
+      lng:  -85.715553,
+      description: "grub"
+    },
+    {
+      title: "Molly Malone's",
+      lat: 38.241760,
+      lng: -85.725012,
+      description: "pub"
+    },
+    {
+      title: "Oshea's",
+      lat: 38.240664,
+      lng: -85.724904,
+      description: "pub"
+    },
+    {
+      title: "Wick's Pizza",
+      lat: 38.240361,
+      lng: -85.724346,
+      description: "grub"
+    },
+    {
+      title: "Nowhere Bar",
+      lat: 38.237917,
+      lng:  -85.719583,
+      description: "pub"
+    },
+    {
+      title: "Impellizari's",
+      lat: 38.233569,
+      lng: -85.711901,
+      description: "grub"
+    },
+    {
+      title: "Boombozz Pizza",
+      lat: 38.231883,
+      lng: -85.710034,
+      description: "grub"
+    },
+    {
+      title:  "Mark's Feed Store BBQ",
+      lat: 38.231445,
+      lng: -85.708532,
+      description: "grub"
+    },
+    {
+      title:  "Seviche",
+      lat: 38.231175,
+      lng: -85.707545,
+      description: "grub"
+    },
+    {
+      title:  "Cumberland Brewery",
+      lat:  38.230729,
+      lng:  -85.705389,
+      description: "pub"
+    },
+    {
+      title:  "Cafe Mimosa",
+      lat:  38.231487,
+      lng:  -85.706344,
+      description: "grub"
+    },
+    {
+      title:  "Palermo",
+      lat:  38.234069,
+      lng:  -85.712695,
+      description: "grub"
+    },
+    {
+      title:  "Bristol Bar",
+      lat:  38.235241,
+      lng:  -85.714041,
+      description: "pub"
+    },
+    {
+      title:  "Heine Brothers Coffee",
+      lat:  38.237297,
+      lng:  -85.719467,
+      description: "grub"
+    }
+];
 
-    locations.push({
-        name: "Nowhere Bar",
-        LatLng: new google.maps.LatLng(38.237917, -85.719583)
-    });
-    locations.push({
-        name: "Impellizari/'s",
-        LatLng: new google.maps.LatLng(38.233569, -85.711901)
-    });
-    locations.push({
-        name: "Boombozz Pizza",
-        LatLng: new google.maps.LatLng(38.231883, -85.710034)
-    });
-    locations.push({
-        name: "Mark/'s Feed Store BBQ",
-        LatLng: new google.maps.LatLng(38.231445, -85.708532)
-    });
-    locations.push({
-        name: "Seviche",
-        LatLng: new google.maps.LatLng(38.231175, -85.707545)
-    });
-    locations.push({
-        name: "Cumberland Brewery",
-        LatLng: new google.maps.LatLng(38.230729, -85.705389)
-    });
-    locations.push({
-        name: "Cafe Mimosa",
-        LatLng: new google.maps.LatLng(38.231487, -85.706944)
-    });
-    locations.push({
-        name: "Palermo",
-        LatLng: new google.maps.LatLng(38.234069, -85.712695)
-    });
-    locations.push({
-        name: "Bristol Bar",
-        LatLng: new google.maps.LatLng(38.235241, -85.714041)
-    });
-    locations.push({
-        name: "Heine Bros Coffee",
-        LatLng: new google.maps.LatLng(38.237297, -85.719467)
-    });
-   function initialize() {
-//Create the map object on the screen
-    var mapOptions = {
-        center: {
-        	//Center map at Cherokee Rd and Bardstown Rd
-            lat: 38.234472,
-            lng: -85.713895
-        },
-        zoom: 15,
+var markersArray = ko.observableArray([]);
+locationData.forEach(populateMarkersArray);
+
+function populateMarkersArray(element) { //, index, array
+    markersArray.push(element);
+}
+var highlands = new google.maps.LatLng(38-235616,-85.715553);
+// Set up a google map
+var mapOptions = {
+        center: highlands,
+        zoom: 16,
+        mapTypeId: 'terrain',
         panControl: false,
         disableDefaultUI: true
-    };
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-    //Array of locations for Markers
+};
 
-    //For Loop creates and places markers when 'load' occurs
-    for (i = 0; i < locations.length; i++) {
-        var marker = new google.maps.Marker({
-            position: locations[i].LatLng,
-            map: map,
-            //animtation buggy with for loop, not really necessary anyway
-            //draggable: false,
-            //animation: google.maps.animation.DROP,
-            title: locations[i].name
-        });
-        var infoWindow = new google.maps.InfoWindow({
-            content: "Placeholder for API"
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-            infoWindow.open(map, marker);
-        });
-    }
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+function initialize() {
+    locationData.forEach(loadMarkers);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    google.maps.event.addListener(function() {
+        infowindow0.close();
+        marker0.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            return;
+        }
+
+  // If the place has a geometry, then present it on a map.
+
+        marker.setIcon(/** @type {google.maps.Icon} */({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+
+
+
+ infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow0.open(map, marker0);
+    });
+
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
-var viewModel = {
-    locations: ko.observableArray(locations)
-};
-ko.applyBindings(viewModel);
-/*window.onload = initialize();*/
- // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          videoId: '',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//example to work from
-var viewModel = function() {
-  var map, bounds, markerArray;
-
-  var self = this;  // ADD THIS LINE, then always use self.markerArray
-
-  //Initialize map location, set as IIFE to kick off immediately
-  var initMap = function() {
-    //create map
-    var mapOptions = {
-      disableDefaultUI: true
-    };
-
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    bounds = new google.maps.LatLngBounds();
-
-    self.markerArray = ko.observableArray();
-
-    //add markers
-    var markerList = model.markers;
-    for(var x = 0; x < markerList.length; x++) {
-      var markPos = new google.maps.LatLng(
-        markerList[x].lat,
-        markerList[x].lng
-      );
-
-      var marker = new google.maps.Marker({
-        position: markPos,
+function loadMarkers(element) { //, index, array
+    var myLatlng = new google.maps.LatLng(element.lat,element.long);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
         map: map,
-        title: markerList[x].title,
-        animation: google.maps.Animation.DROP
-      });
+        title: element.name
+    });
+    loadInfoWindow(element, marker);
+}
 
-      var infowindow = new google.maps.InfoWindow({
-        content: null
-      });
+function loadInfoWindow(element, marker) {
+    var contentString = '<div class="strong"><a href="' + element.url + '" target="_blank">' + element.name + '</a></div><div>' + element.add1 + '</div><div>' + element.add2 + '</div><div>'+ element.phone + '</div>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+        toggleBounce(marker);
+    });
+}
 
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(this.title)
-        infowindow.open(map, this);
-      });
-
-      bounds.extend(markPos);
-      map.fitBounds(bounds);
-      map.setCenter(bounds.getCenter());
-
-      self.markerArray.push(marker);
+ function toggleBounce(marker) {
+    if (marker.getAnimation() != null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-    console.log(self.markerArray());
-  }();
+}
 
 
-};
+function viewModel() {
 
-ko.applyBindings(new viewModel());
+
+  }
+  ko.applyBindings(new viewModel());
