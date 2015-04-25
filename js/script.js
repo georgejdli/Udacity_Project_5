@@ -91,10 +91,10 @@ var markers = [
       description: "grub"
     }
 ];
-
+var markerArray = [];
 var viewModel = function() {
-  var map, bounds, markerArray;
-  markerArray = [];
+  var map, bounds;
+
   var self = this;
     //Initialize map location, set as IIFE to kick off immediately
   var initMap = function() {
@@ -123,6 +123,7 @@ var viewModel = function() {
       var marker = new google.maps.Marker({
         position: markPos,
         map: map,
+        icon: 'images/marker.png',
         title: markers[i].title,
         animation: google.maps.Animation.DROP
       });
@@ -132,6 +133,17 @@ var viewModel = function() {
       map.setCenter(bounds.getCenter());
 
       self.markerArray.push(marker);
+
+
+      self.query = ko.observable('');
+      self.filterQuery = ko.observable('');
+
+      self.filterSubmit = ko.dependentObservable(function () {
+        var search = self.query().toLowerCase();
+        return ko.utils.arrayFilter(name, function (marker) {
+          return marker.toLowerCase().indexOf(search) >=0;
+        });
+      });
 //still need to work on infoWindow, put more content in
 //creates the window for each marker, just applies a generic youtube video at the moment, need to get it working with Ajax to supply video.
 
