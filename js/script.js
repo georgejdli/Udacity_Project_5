@@ -136,7 +136,7 @@ var viewModel = function() {
 
 
       self.query = ko.observable('');
-      this.filterQuery = ko.observable('');
+      self.filterQuery = ko.observable('');
 
       self.filterSubmit = ko.dependentObservable(function () {
         var search = self.query().toLowerCase();
