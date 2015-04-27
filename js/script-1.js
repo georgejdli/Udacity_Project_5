@@ -115,8 +115,8 @@ function initialize() {
     });
 
     google.maps.event.addListener(function() {
-        infowindow0.close();
-        marker0.setVisible(false);
+        infowindow.close();
+        marker.setVisible(false);
         var place = autocomplete.getPlace();
         if (!place.geometry) {
             return;
