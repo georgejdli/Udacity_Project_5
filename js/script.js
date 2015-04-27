@@ -149,13 +149,6 @@ var viewModel = function() {
 
       self.markerArray.push(marker);
 
-<<<<<<< HEAD
-=======
-
-      self.query = ko.observable('');
-      self.filterQuery = ko.observable('');
-
->>>>>>> origin/master
       self.filterSubmit = ko.dependentObservable(function () {
         var search = self.query().toLowerCase();
         return ko.utils.arrayFilter(name, function (marker) {
