@@ -96,10 +96,10 @@ var viewModel = function() {
   var map, bounds;
 
   var self = this;
-  query = ko.observable('');
+  query: ko.observable('');
   self.query = ko.observable('');
   self.filterQuery = ko.observable('');
-
+    //credit to : http://opensoul.org/2011/06/23/live-search-with-knockoutjs/
     self.search = function(value) {
     // remove all the current beers, which removes them from the view
     viewModel.markerArray.removeAll();

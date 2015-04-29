@@ -59,7 +59,7 @@ body {
   border-radius: 15px;
   border: 5px;
   border-color: rgba(0,0,0,0.25);
-  opacity: .7;
+  opacity: .95;
   display: inline-block;
   z-index: 9999;
   overflow: auto;
