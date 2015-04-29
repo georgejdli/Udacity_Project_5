@@ -29,25 +29,6 @@ body {
   flex-wrap: wrap;
   border-radius: 10px;
 }
-
-/*#player {
-  position: fixed;
-  top:10%;
-  right: 10%;
-  z-index: 9999;
-  background: rgba (0,0,0,0.25);
-  height: 200px;
-  width: 300px;
-  display: flex;
-  flex-wrap: wrap;
-}*/
-/*
-.search-bar,
-.search_input {
-  height: 80%;
-  border: none;
-}
-*/
 .search-bar {
   padding: 5px 8px;
   width: 233px;
@@ -68,18 +49,20 @@ body {
 #pointList {
   position: fixed;
   left: 10px;
-  top: 10px;
-  width: 18%;
+  top: 30px;
+  width: 20%;
   min-width: 200px;
-  height: 80%;
+  height: 35%;
   background-color: red;
   color: black;
   font-size: 1.2em;
   border-radius: 15px;
-  border: 5px solid black;
-  opacity: .6;
+  border: 5px;
+  border-color: rgba(0,0,0,0.25);
+  opacity: .95;
   display: inline-block;
   z-index: 9999;
+  overflow: auto;
 }
 
 /*needs some work, but raw css for search background-repeat */
