@@ -96,6 +96,21 @@ var viewModel = function() {
   var map, bounds;
 
   var self = this;
+  query: ko.observable('');
+  self.query = ko.observable('');
+  self.filterQuery = ko.observable('');
+    //credit to : http://opensoul.org/2011/06/23/live-search-with-knockoutjs/
+    self.search = function(value) {
+    // remove all the current beers, which removes them from the view
+    viewModel.markerArray.removeAll();
+
+    for(var x in markerArray) {
+      if(markerArray[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+        viewModel.markerArray.push(markerArray[x]);
+      }
+    }
+  }
+
     //Initialize map location, set as IIFE to kick off immediately
   var initMap = function() {
     //create map
@@ -134,10 +149,6 @@ var viewModel = function() {
 
       self.markerArray.push(marker);
 
-
-      self.query = ko.observable('');
-      self.filterQuery = ko.observable('');
-
       self.filterSubmit = ko.dependentObservable(function () {
         var search = self.query().toLowerCase();
         return ko.utils.arrayFilter(name, function (marker) {
@@ -169,10 +180,11 @@ var viewModel = function() {
         );
     });
   }
-    //console.log(markerArray()
+
   }();
 
 
 };
 
 ko.applyBindings(new viewModel());
+viewModel.query.subscribe(viewModel.search);
