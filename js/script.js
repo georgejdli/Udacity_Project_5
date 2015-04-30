@@ -100,8 +100,6 @@ var ViewModel = function() {
 
   //this is not an object so don't use labels
   //query: ko.observable('');
-
-  self.query = ko.observable;
   self.query = ko.observable('');
   self.filterQuery = ko.observable('');
     //credit to : http://opensoul.org/2011/06/23/live-search-with-knockoutjs/
